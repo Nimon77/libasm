@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+int ft_strlen(char *str);
+
 int main(int argc, char const *argv[])
 {
     char str[] = "test";
