@@ -6,7 +6,7 @@
 #    By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/29 19:20:22 by nsimon            #+#    #+#              #
-#    Updated: 2020/06/29 19:20:22 by nsimon           ###   ########.fr        #
+#    Updated: 2020/06/29 19:53:57 by nsimon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJ_PATH = ./objs/
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
-ASM_OBJ_NAME = $(ASM_NAME:.s=.obj)
+ASM_OBJ_NAME = $(ASM_NAME:.s=.o)
 
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
@@ -44,26 +44,26 @@ ASM_SRC = ft_strlen.s
 
 NASM = nasm $(NASMFLAGS)
 
-NASMFLAGS = -f win64 -M
+NASMFLAGS = -f macho64
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(ASM_OBJ)
 	@echo "\033[34mCreation of $(NAME) ...\033[0m"
-	@$(CC) $(OBJ) -o$(NAME)
+	@$(CC) $(OBJ) $(ASM_OBJ) -o$(NAME)
 	@echo "\033[32m$(NAME) created\n\033[0m"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) -I$(INC_PATH) -o $@ -c $<
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.s
+$(OBJ_PATH)%.o: $(ASM_PATH)%.s
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(NASM) -o $@
+	@$(NASM) -o $@ $<
 
 clean:
 	@echo "\033[33mRemoval of .o files of $(NAME) ...\033[0m"
-	@rm -f $(OBJ)
+	@rm -f $(OBJ) $(ASM_OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 	@echo "\033[31mFiles .o deleted\n\033[0m"
 
