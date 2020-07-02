@@ -12,28 +12,28 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-int ft_strlen(char *str);
-char *ft_strcpy(char *dst, const char *src);
+int     ft_strlen(char *str);
+int     ft_strcmp(const char *s1, const char *s2);
+char    *ft_strcpy(char *dst, const char *src);
+ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
 
 int main()
 {
     char    *str[2];
-    char    *str2[2];
     char    *ret = NULL;
-    char    *ret2 = NULL;
+    char    *cmp = "teSt";
+    char    cmp2[] = "teSt";
 
-    str[0] = strdup("test123456789101112131415161171819");
+    str[0] = strdup("test");
     str[1] = strdup("blabla");
-    str2[0] = strdup("test123456789101112131415161171819");
-    str2[1] = strdup("blabla");
-    ret = ft_strcpy(str[1], str[0]);
-    ret2 = strcpy(str2[1], str2[0]);
+    ret = ft_strcpy(str[1], cmp);
 
-    for(int i = 0; str[1][i] != 0; i++)
-        printf("%p\n", &str[1][i]);
-
-    printf("%d\n\n", ft_strlen(str[0]));
-    printf("%p = %p\n%s\n\n%p = %p\n%s\n", str[1], ret, str[1], str2[1], ret2, str2[1]);
+    printf("ft_strlen :\n%d\n\n", ft_strlen(str[0]));
+    printf("ft_strcpy :\n%p = %p\n%s\n\n", str[1], ret, str[1]);
+    printf("ft_strcmp :\n%d = %d\n", ft_strcmp(cmp, cmp2), strcmp(cmp, cmp2));
+    ft_write(1, "\nft_write :\ntest\n", ft_strlen("\nft_write :\ntest\n"));
     return 0;
 }

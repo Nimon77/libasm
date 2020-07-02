@@ -21,7 +21,9 @@ ASM_PATH = ./
 SRC_NAME =	main.c
 
 ASM_NAME = ft_strlen.s \
-			ft_strcpy.s
+			ft_strcpy.s \
+			ft_strcmp.s \
+			ft_write.s
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 
