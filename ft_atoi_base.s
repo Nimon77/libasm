@@ -22,11 +22,11 @@ to_find:
     cmp     BYTE[rsi + r9], 0       ; rsi[r9] == '\0' ?
     je      end                     : yes
     cmp     r11b, BYTE[rsi + r9]    ; r11b == rsi[r9] ?
-    je      is_find                 ; yes
+    je      finded                  ; yes
     inc     r9                      ; r9++
     jne     to_find                 ; no
 
-is_find:
+finded:
     imul    rax, rbx                ; rax *= rbx
     add     rax, r9                 ; rax += r9
     inc     r8                      ; r8++
