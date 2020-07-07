@@ -8,7 +8,6 @@ _ft_strdup:
     push    rdi         ; save char *src
     call    _ft_strlen  ; calc size
     mov     rdi, rax
-    imul    rdi, 8      ; multi by sizeof(char)
     call    _malloc
     mov     rdi, rax    ; new char* (dst) to 1st argument
     pop     rsi         ; char *src as 2nd argument

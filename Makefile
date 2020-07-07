@@ -25,7 +25,8 @@ ASM_NAME = ft_strlen.s \
 			ft_strcmp.s \
 			ft_write.s \
 			ft_read.s \
-			ft_strdup.s
+			ft_strdup.s \
+			ft_atoi_base.s
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 
@@ -44,8 +45,6 @@ ASM_OBJ = $(addprefix $(OBJ_PATH), $(ASM_OBJ_NAME))
 CC = gcc $(CFLAGS)
 
 CFLAGS = -Wall -Wextra -Werror -g
-
-ASM_SRC = ft_strlen.s
 
 NASM = nasm $(NASMFLAGS)
 
