@@ -3,6 +3,8 @@ section .text
 
 _ft_strcmp:
     mov rax, 0
+    mov r8, 0
+    mov r9, 0
     jmp comp
 
 incre:
@@ -18,8 +20,8 @@ comp:
     je  incre
 
 done:
-    mov dl, BYTE [rdi + rax]
-    mov bl, BYTE [rsi + rax]
-    sub rdx, rbx
-    mov rax, rdx
+    mov r8b, BYTE [rdi + rax]
+    mov r9b, BYTE [rsi + rax]
+    sub r8, r9
+    mov rax, r8
     ret

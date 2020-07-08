@@ -44,11 +44,12 @@ ASM_OBJ = $(addprefix $(OBJ_PATH), $(ASM_OBJ_NAME))
 
 CC = gcc $(CFLAGS)
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -no-pie
 
 NASM = nasm $(NASMFLAGS)
 
-NASMFLAGS = -f macho64
+#NASMFLAGS = -f macho64
+NASMFLAGS = -f elf64
 
 all: $(NAME)
 
