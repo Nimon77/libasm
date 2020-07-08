@@ -49,7 +49,9 @@ int main()
 
     int     ret3;
 
-    ret3 = ft_atoi_base("2147483647", "0123456789");
+    ret3 = ft_atoi_base("     2147483647", "0123456789");
+    printf("%d\n", ret3);
+    ret3 = atoi("     2147483647");
     printf("%d\n", ret3);
     return 0;
 }
