@@ -27,7 +27,8 @@ ASM_NAME = ft_strlen.s \
 			ft_read.s \
 			ft_strdup.s \
 			ft_atoi_base.s \
-			ft_list_push_front.s
+			ft_list_push_front.s \
+			ft_list_size.s
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 
@@ -45,12 +46,12 @@ ASM_OBJ = $(addprefix $(OBJ_PATH), $(ASM_OBJ_NAME))
 
 CC = gcc $(CFLAGS)
 
-CFLAGS = -Wall -Wextra -Werror -no-pie
+CFLAGS = -Wall -Wextra -Werror# -no-pie
 
 NASM = nasm $(NASMFLAGS)
 
-#NASMFLAGS = -f macho64
-NASMFLAGS = -f elf64
+NASMFLAGS = -f macho64
+#NASMFLAGS = -f elf64
 
 all: $(NAME)
 
