@@ -31,8 +31,10 @@ ssize_t ft_write(int fildes, const void *buf, size_t nbyte);
 ssize_t ft_read(int fildes, void *buf, size_t nbyte);
 char    *ft_strdup(const char *s1);
 int     ft_atoi_base(const char *str, const char *base);
-void    ft_list_push_front(t_list **alst, t_list *new);
-int     ft_list_size(t_list *lst);
+void    ft_list_push_front(t_list **begin_list, void *data);
+int     ft_list_size(t_list *begin_list);
+void    ft_list_sort(t_list **begin_list, int(*cmp)());
+void    ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 
 int main()
 {
@@ -43,9 +45,8 @@ int main()
     char    cmp2[] = "teSt";
     char    buf[256];
     ssize_t retval;
-    t_list  *lst1;
-    t_list  *lst2;
-    t_list  *lst3;
+    t_list  *lst;
+    t_list  *next;
 
     str[0] = ft_strdup("test");
     str[1] = ft_strdup("blabla");
@@ -57,29 +58,32 @@ int main()
     ft_write(1, "\nft_write :\ntest\n", ft_strlen("\nft_write :\ntest\n"));
     ft_write(1, "\n", 1);
     retval = 0;
+    ft_write(1, "ft_read ? ", 10);
     retval = ft_read(0, &buf, 256);
     ft_write(1, &buf, ft_strlen(buf));
     printf("%zd\n\n", retval);
 
-    ret3 = ft_atoi_base("     -2147483647", "012345678");
+    printf("ft_atoi_base :\n");
+    ret3 = ft_atoi_base("     -2147483647", "0123456789");
     printf("%d\n", ret3);
     ret3 = atoi("     -2147483647");
-    printf("%d\n", ret3);
+    printf("%d\n\n", ret3);
 
-    lst1 = malloc(sizeof(*lst1));
-    lst1->data = ft_strdup("lst1");
-    lst1->next = NULL;
-    lst2 = malloc(sizeof(*lst2));
-    lst2->data = ft_strdup("lst2");
-    lst2->next = NULL;
-    lst3 = malloc(sizeof(*lst3));
-    lst3->data = ft_strdup("lst3");
-    lst3->next = NULL;
-    printf("\n%ld\t%ld\n", sizeof(void *), sizeof(t_list));
-    printf("\n%s, %s, %s\n", (char *)lst1->data, (char *)lst2->data, (char *)lst3->data);
-    ft_list_push_front(&lst1, lst2);
-    ft_list_push_front(&lst1, lst3);
-    printf("%s -> %s -> %s\n", (char *)lst1->data, (char *)lst1->next->data, (char *)lst1->next->next->data);
-    printf("size : %d\n", ft_list_size(lst1));
+    printf("ft_lst_push_front :\n");
+    lst = malloc(sizeof(*lst));
+    lst->data = ft_strdup("start");
+    ft_list_push_front(&lst, ft_strdup("front1"));
+    ft_list_push_front(&lst, ft_strdup("front2"));
+    ft_list_push_front(&lst, ft_strdup("blabla"));
+    ft_list_push_front(&lst, ft_strdup("font4"));
+    ft_list_push_front(&lst, ft_strdup("front5"));
+    printf("%s", (char *)lst->data);
+    next = lst->next;
+    while (next != NULL)
+    {
+        printf(" -> %s", (char *)next->data);
+        next = next->next;
+    }
+    printf("\n");
     return 0;
 }

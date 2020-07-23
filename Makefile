@@ -28,7 +28,8 @@ ASM_NAME = ft_strlen.s \
 			ft_strdup.s \
 			ft_atoi_base.s \
 			ft_list_push_front.s \
-			ft_list_size.s
+			ft_list_size.s \
+			ft_list_sort.s
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 
