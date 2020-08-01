@@ -47,7 +47,7 @@ ASM_OBJ = $(addprefix $(OBJ_PATH), $(ASM_OBJ_NAME))
 
 CC = gcc $(CFLAGS)
 
-CFLAGS = -Wall -Wextra -Werror# -no-pie
+CFLAGS = -Wall -Wextra -Werror -g# -no-pie
 
 NASM = nasm $(NASMFLAGS)
 

@@ -36,6 +36,11 @@ int     ft_list_size(t_list *begin_list);
 void    ft_list_sort(t_list **begin_list, int(*cmp)());
 void    ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 
+int ft_cmp(char *str1, char *str2)
+{
+    return (ft_strcmp(str1, str2) < 0 ? 1 : 0);
+}
+
 int main()
 {
     int     ret3;
@@ -72,11 +77,21 @@ int main()
     printf("ft_lst_push_front :\n");
     lst = malloc(sizeof(*lst));
     lst->data = ft_strdup("start");
+    lst->next = NULL;
     ft_list_push_front(&lst, ft_strdup("front1"));
     ft_list_push_front(&lst, ft_strdup("front2"));
     ft_list_push_front(&lst, ft_strdup("blabla"));
-    ft_list_push_front(&lst, ft_strdup("font4"));
+    ft_list_push_front(&lst, ft_strdup("front4"));
     ft_list_push_front(&lst, ft_strdup("front5"));
+    printf("%s", (char *)lst->data);
+    next = lst->next;
+    while (next != NULL)
+    {
+        printf(" -> %s", (char *)next->data);
+        next = next->next;
+    }
+    printf("\n");
+    ft_list_sort(&lst, ft_cmp);
     printf("%s", (char *)lst->data);
     next = lst->next;
     while (next != NULL)
