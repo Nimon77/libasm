@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libasm
+NAME = libasm.a
 
 INC_PATH = ./includes/
 
@@ -58,7 +58,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(ASM_OBJ)
 	@echo "\033[34mCreation of $(NAME) ...\033[0m"
-	@$(CC) $(OBJ) $(ASM_OBJ) -o$(NAME)
+	@ar rc $(NAME) $(ASM_OBJ)
+	@ranlib $(NAME)
+	#$(CC) $(OBJ) $(ASM_OBJ) -o$(NAME)
 	@echo "\033[32m$(NAME) created\n\033[0m"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
