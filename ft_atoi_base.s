@@ -17,7 +17,7 @@ _ft_atoi_base:
     pop     rdi                     ; get str
     mov     eax, 0                  ; rax = 0
     mov     r8, 0                   ; r8 = 0
-    mov     r10, 0
+    mov     r10, 1
     
 check_space:
     mov     r11b, BYTE[rdi + r8]    ; set r11b as str[r8]
@@ -25,12 +25,18 @@ check_space:
     jne     check_neg
     inc     r8
     jmp     check_space
+
+next_neg:
+    inc     r8
+    mov     r11b, BYTE[rdi + r8]
+
 check_neg:
+    cmp     r11b, 43                ; r11b == '+' ?
+    je      next_neg
     cmp     r11b, 45                ; r11b == '-' ?
     jne     parse
-    mov     r10b, 1
-    inc     r8
-    jmp     parse
+    neg     r10b
+    jmp     next_neg
 
 to_find:
     cmp     BYTE[rsi + r9], 0       ; rsi[r9] == '\0' ?
@@ -50,7 +56,7 @@ parse:
     cmp     r11b, 0                 ; r11b == '\0' ?
     jne     to_find                 ; no
 is_neg:
-    cmp     r10b, 0
+    cmp     r10b, 1
     je      end
     neg     eax                     ; make eax neg
 

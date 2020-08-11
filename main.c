@@ -43,7 +43,6 @@ int ft_cmp(char *str1, char *str2)
 
 int main()
 {
-    int     ret3;
     char    *str[2];
     char    *ret = NULL;
     char    *cmp = "teSt";
@@ -69,10 +68,8 @@ int main()
     printf("%zd\n\n", retval);
 
     printf("ft_atoi_base :\n");
-    ret3 = ft_atoi_base("     -2147483647", "0123456789");
-    printf("%d\n", ret3);
-    ret3 = atoi("     -2147483647");
-    printf("%d\n\n", ret3);
+    printf("%d\n", ft_atoi_base("     ---++--++++-+++2000", "0123456789"));
+    printf("%d\n\n", atoi("     -2000"));
 
     printf("ft_lst_push_front :\n");
     lst = malloc(sizeof(*lst));
