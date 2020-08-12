@@ -15,28 +15,78 @@ _ft_atoi_base:
     mov     rbx, rax                ; save size_base as rbx
     mov     rsi, rdi                ; restore base to rsi
     pop     rdi                     ; get str
+    cmp     rbx, 0
+    je      end                     ; if size_base = 0
     mov     eax, 0                  ; rax = 0
     mov     r8, 0                   ; r8 = 0
+
+check_base:
+    mov     r11b, BYTE[rsi + r8]
+    cmp     r11b, 0
+    je      check_base_end
+    cmp     r11b, 9
+    je      end                     ; if base == '\t'
+    cmp     r11b, 10
+    je      end                     ; if base == '\n'
+    cmp     r11b, 11
+    je      end                     ; if base == '\v'
+    cmp     r11b, 12
+    je      end                     ; if base == '\f'
+    cmp     r11b, 13
+    je      end                     ; if base == '\r'
+    cmp     r11b, 32
+    je      end                     ; if base == ' '
+    cmp     r11b, 43
+    je      end                     ; if base == '+'
+    cmp     r11b, 45
+    je      end                     ; if base == '-'
+    mov     r9, r8
+check_double:
+    add     r9, 1
+    mov     r12b, BYTE[rsi + r9]
+    cmp     r12b, 0
+    je      check_base_next
+    cmp     r12b, r11b
+    je      end
+    jmp     check_double
+check_base_next:
+    add     r8, 1
+    jmp     check_base
+
+check_base_end:
+    mov     r8, 0
     mov     r10, 1
-    
+    mov     r11, 0
+
 check_space:
     mov     r11b, BYTE[rdi + r8]    ; set r11b as str[r8]
-    cmp     r11b, 32                ; r11b == ' ' ?
-    jne     check_neg
+    cmp     r11b, 9
+    je      next_space              ; if base == '\t'
+    cmp     r11b, 10
+    je      next_space              ; if base == '\n'
+    cmp     r11b, 11
+    je      next_space              ; if base == '\v'
+    cmp     r11b, 12
+    je      next_space              ; if base == '\f'
+    cmp     r11b, 13
+    je      next_space              ; if base == '\r'
+    cmp     r11b, 32
+    je      next_space              ; if r11b == ' '
+    jmp     check_sign
+next_space:
     inc     r8
     jmp     check_space
 
-next_neg:
+next_sign:
     inc     r8
     mov     r11b, BYTE[rdi + r8]
-
-check_neg:
-    cmp     r11b, 43                ; r11b == '+' ?
-    je      next_neg
-    cmp     r11b, 45                ; r11b == '-' ?
-    jne     parse
+check_sign:
+    cmp     r11b, 43
+    je      next_sign               ; if r11b == '+'
+    cmp     r11b, 45
+    jne     parse                   ; if r11b == '-'
     neg     r10b
-    jmp     next_neg
+    jmp     next_sign
 
 to_find:
     cmp     BYTE[rsi + r9], 0       ; rsi[r9] == '\0' ?

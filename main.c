@@ -68,8 +68,8 @@ int main()
     printf("%zd\n\n", retval);
 
     printf("ft_atoi_base :\n");
-    printf("%d\n", ft_atoi_base("     ---++--++++-+++2000", "0123456789"));
-    printf("%d\n\n", atoi("     -2000"));
+    printf("%d\n", ft_atoi_base(" \t\n\r-++++++-+--ff\xff", "0123456789abcdef"));
+    printf("%d\n\n", atoi("   \t\n\r  255"));
 
     printf("ft_lst_push_front :\n");
     lst = malloc(sizeof(*lst));
