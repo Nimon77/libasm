@@ -2,12 +2,12 @@ section .text
     global _ft_list_size
 
 _ft_list_size:
-    mov rax, 1
+    mov rax, 0
 counter:
-    cmp BYTE[8+rdi], 0
-    je  end
-    add rax, 1
+    cmp rdi, 0
+    jz  end
     mov rdi, 8[rdi]
+    inc rax
     jmp counter
 
 end:

@@ -2,3 +2,4 @@
 libasm
 libasm.a
 /test/
+/libasm.dSYM/
