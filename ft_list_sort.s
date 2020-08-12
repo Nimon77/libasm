@@ -15,7 +15,7 @@ _ft_list_sort:
     push    rcx        ; *begin_list
 while:
     mov     rdi, [rcx] ; rdi = lst->content
-    mov     r9, 8[rcx] ; r9 = lst->next
+    mov     r9, [rcx + 8] ; r9 = lst->next
     cmp     r9, 0
     jz      pre_end
     mov     rsi, [r9]  ; rsi = lst->next->content

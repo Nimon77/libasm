@@ -6,7 +6,7 @@ _ft_list_size:
 counter:
     cmp rdi, 0
     jz  end
-    mov rdi, 8[rdi]
+    mov rdi, [rdi + 8]
     inc rax
     jmp counter
 

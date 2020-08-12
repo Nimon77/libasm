@@ -11,6 +11,6 @@ _ft_list_push_front:
     pop     rdi
     mov     [rax], rsi
     mov     rcx, [rdi]
-    mov     8[rax], rcx
+    mov     [rax + 8], rcx
     mov     [rdi], rax
     ret
