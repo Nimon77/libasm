@@ -3,3 +3,4 @@ libasm
 libasm.a
 /test/
 /libasm.dSYM/
+a.out
