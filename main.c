@@ -6,7 +6,7 @@
 /*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:18:45 by nsimon            #+#    #+#             */
-/*   Updated: 2020/06/29 19:55:25 by nsimon           ###   ########.fr       */
+/*   Updated: 2020/08/13 16:09:07 by nsimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct      s_list
 {
     void            *data;
     struct s_list   *next;
-    
 }                   t_list;
 
 
@@ -79,13 +78,13 @@ int gen_random()
     static int first = 0;
     int max = 10000;
     int min = -10000;
-   
+
     if (first == 0)
     {
         srand(time(NULL));
         first = 1;
     }
-    return ((random() % (max + 1 - min)) + min);
+    return ((rand() % (max + 1 - min)) + min);
 }
 
 int main()
