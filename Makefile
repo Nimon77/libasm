@@ -10,15 +10,18 @@
 #                                                                              #
 # **************************************************************************** #
 
+UNAME_S := $(shell uname -s)
+
 NAME = libasm.a
 
-INC_PATH = ./includes/
-
-SRC_PATH = ./
-
-ASM_PATH = ./
-
-SRC_NAME =	main.c
+ifeq ($(UNAME_S),Linux)
+	ASM_PATH = ./linux/
+	NASMFLAGS = -f elf64
+endif
+ifeq ($(UNAME_S),Darwin)
+	ASM_PATH = ./macos/
+	NASMFLAGS = -f macho64
+endif
 
 ASM_NAME = ft_strlen.s \
 			ft_strcpy.s \
@@ -31,41 +34,23 @@ ASM_NAME = ft_strlen.s \
 			ft_list_size.s \
 			ft_list_sort.s
 
-SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
-
 ASM = $(addprefix $(ASM_PATH),$(ASM_NAME))
 
 OBJ_PATH = ./objs/
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
-
 ASM_OBJ_NAME = $(ASM_NAME:.s=.o)
-
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 ASM_OBJ = $(addprefix $(OBJ_PATH), $(ASM_OBJ_NAME))
 
-CC = gcc $(CFLAGS)
-
-CFLAGS = -Wall -Wextra -Werror -g# -no-pie
-
 NASM = nasm $(NASMFLAGS)
-
-NASMFLAGS = -f macho64
-#NASMFLAGS = -f elf64
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(ASM_OBJ)
+$(NAME): $(ASM_OBJ)
 	@echo "\033[34mCreation of $(NAME) ...\033[0m"
 	@ar rc $(NAME) $(ASM_OBJ)
 	@ranlib $(NAME)
-	#$(CC) $(OBJ) $(ASM_OBJ) -o$(NAME)
 	@echo "\033[32m$(NAME) created\n\033[0m"
-
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) -I$(INC_PATH) -o $@ -c $<
 
 $(OBJ_PATH)%.o: $(ASM_PATH)%.s
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -73,7 +58,7 @@ $(OBJ_PATH)%.o: $(ASM_PATH)%.s
 
 clean:
 	@echo "\033[33mRemoval of .o files of $(NAME) ...\033[0m"
-	@rm -f $(OBJ) $(ASM_OBJ)
+	@rm -f $(ASM_OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 	@echo "\033[31mFiles .o deleted\n\033[0m"
 
@@ -89,8 +74,4 @@ git:
 	@git commit -m "$(NAME)"
 	@git push
 
-norme:
-	norminette $(SRC)
-	norminette $(INC_PATH)*.h
-
-.PHONY: all, clean, fclean, re, git, norme
+.PHONY: all, clean, fclean, re, git
