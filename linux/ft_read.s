@@ -5,12 +5,15 @@ section .text
 ft_read:
     mov rax, 0x0
     syscall
-    jc  error
+	cmp rax, 0
+    js  error
     ret
 
 error:
-    mov r8, rax
+	neg rax
+	push rax
     call __errno_location
-    mov [rax], r8
+	pop rcx
+    mov [rax], rcx
     mov rax, -1
     ret

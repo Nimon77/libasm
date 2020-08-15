@@ -19,11 +19,12 @@
 int main(int argc, char const *argv[])
 {
     int retvalue;
-    char buff[atoi(argv[2])];
+    char buff[atoi(argv[2]) + 1];
 
     if (argc > 1)
     {
         retvalue = ft_read(atoi(argv[1]), &buff, atoi(argv[2]));
+		buff[retvalue] = 0;
         printf("%s\n", buff);
         printf("\n%d\n", retvalue);
         if (retvalue == -1)
