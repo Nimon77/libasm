@@ -6,7 +6,7 @@
 /*   By: nsimon <nsimon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:18:45 by nsimon            #+#    #+#             */
-/*   Updated: 2020/08/15 12:04:58 by nsimon           ###   ########.fr       */
+/*   Updated: 2020/08/18 15:25:50 by nsimon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int main()
     str[0] = ft_strdup("test");
     str[1] = ft_strdup("blabla");
 
-    printf("ft_strlen :\n%d\n\n", ft_strlen(str[0]));
+    printf("ft_strlen :\n%zu\n\n", ft_strlen(str[0]));
 
     ret = ft_strcpy(str[0], str[1]);
     printf("ft_strcpy :\n%p = %p\n%s\n\n", str[1], ret, str[1]);
